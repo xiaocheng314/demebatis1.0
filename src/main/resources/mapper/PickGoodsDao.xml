@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batis.demobatis.dao.PickGoodsDao">
+
+    <resultMap type="com.batis.demobatis.entity.PickGoods" id="PickGoodsMap">
+        <result property="pickNumber" column="pick_number"/>
+        <result property="pickWxOpenId" column="pick_wxopenid"/>
+        <result property="pickImg" column="pick_img"/>
+        <result property="pickProduct" column="pick_product"/>
+        <result property="pickAddress" column="pick_address"/>
+        <result property="pickContent" column="pick_content"/>
+        <result property="pickReturn" column="pick_return"/>
+        <result property="tel" column="tel"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+<!--    &lt;!&ndash;查询单个&ndash;&gt;-->
+<!--    <select id="queryAllBy" resultMap="PickGoodsMap">-->
+<!--        select-->
+<!--          pick_number, pick_id, good_img,pick_icon, pick_product, pick_address, pick_kind, pick_content, pick_return, pick_id, create_time, update_time-->
+<!--        from campus.pick_goods-->
+<!--        where pick_Id = #{pickId}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;查询单个&ndash;&gt;-->
+<!--    <select id="queryById" resultMap="PickGoodsMap">-->
+<!--        select-->
+<!--          pick_number, pick_id, pick_icon, pick_product, pick_address, pick_kind, pick_content, pick_return, pick_id, create_time, update_time-->
+<!--        from campus.pick_goods-->
+<!--        where pick_number = #{pickNumber}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;查询指定行数据&ndash;&gt;-->
+<!--    <select id="queryAllByLimit" resultMap="PickGoodsMap">-->
+<!--        select-->
+<!--          pick_number, pick_id, pick_icon, pick_product, pick_address, pick_kind, pick_content, pick_return, pick_id, create_time, update_time-->
+<!--        from campus.pick_goods-->
+<!--        limit #{offset}, #{limit}-->
+<!--    </select>-->
+
+    <!--查询所有返回值为0的物品-->
+    <select id="queryAll" resultMap="PickGoodsMap">
+        select
+        pick_number,pick_wxopenid,pick_img,pick_product,pick_address,pick_content,pick_return,tel,create_time,update_time
+        from campus.pick_goods where pick_return=0;
+    </select>
+
+    <!--通过openId来查询捡到物的信息-->
+    <select id="queryPickAllByOpenId" resultMap="PickGoodsMap">
+        select
+        pick_number,pick_wxopenid,pick_img,pick_product,pick_address,pick_content,pick_return,tel,create_time,update_time
+        from campus.pick_goods
+        where pick_wxopenid = #{pickWxOpenId}
+    </select>
+
+    <!--通过丢失物的名称来查询捡到物的信息-->
+    <select id="queryAllByLostProduct" resultMap="PickGoodsMap">
+        select
+        pick_number,pick_wxopenid,pick_img,pick_product,pick_address,pick_content,pick_return,tel,create_time,update_time
+        from campus.pick_goods
+        where pick_return = 0
+        and (pick_product like CONCAT(CONCAT('%', #{lostProduct}), '%') or pick_content like CONCAT(CONCAT('%', #{lostProduct}), '%'))
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert">
+        insert  into pick_goods(pick_number,pick_wxopenid,pick_img,pick_product,pick_address,pick_content,pick_return,tel,create_time,update_time) VALUES
+        (default ,#{pickWxOpenId},#{pickImg}, #{pickProduct}, #{pickAddress},#{pickContent},default ,#{tel}, default ,default)
+    </insert>
+
+    <!--通过pickNumber来确认是否丢失物认领-->
+    <update id="updatPickReturn">
+        update campus.pick_goods
+        set pick_return = 1
+        where pick_number = #{pickNumber}
+    </update>
+    <!--通过主键修改数据-->
+<!--    <update id="update">-->
+<!--        update campus.pick_goods-->
+<!--        <set>-->
+<!--            <if test="pickId != null">-->
+<!--                pick_id = #{pickId},-->
+<!--            </if>-->
+<!--            <if test="pickIcon != null and pickIcon != ''">-->
+<!--                pick_icon = #{pickIcon},-->
+<!--            </if>-->
+<!--            <if test="pickProduct != null and pickProduct != ''">-->
+<!--                pick_product = #{pickProduct},-->
+<!--            </if>-->
+<!--            <if test="pickAddress != null and pickAddress != ''">-->
+<!--                pick_address = #{pickAddress},-->
+<!--            </if>-->
+<!--            <if test="pickKind != null and pickKind != ''">-->
+<!--                pick_kind = #{pickKind},-->
+<!--            </if>-->
+<!--            <if test="pickContent != null and pickContent != ''">-->
+<!--                pick_content = #{pickContent},-->
+<!--            </if>-->
+<!--            <if test="pickReturn != null">-->
+<!--                pick_return = #{pickReturn},-->
+<!--            </if>-->
+<!--            <if test="pickId != null">-->
+<!--                pick_id = #{pickId},-->
+<!--            </if>-->
+<!--            <if test="createTime != null">-->
+<!--                create_time = #{createTime},-->
+<!--            </if>-->
+<!--            <if test="updateTime != null">-->
+<!--                update_time = #{updateTime},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where pick_number = #{pickNumber}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;通过主键删除&ndash;&gt;-->
+<!--    <delete id="deleteById">-->
+<!--        delete from campus.pick_goods where pick_number = #{pickNumber}-->
+<!--    </delete>-->
+
+</mapper>

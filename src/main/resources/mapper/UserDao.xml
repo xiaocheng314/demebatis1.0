@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batis.demobatis.dao.UserDao">
+
+    <resultMap type="com.batis.demobatis.entity.User" id="UserMap">
+        <result property="uuId" column="stu_uuid"/>
+        <result property="openId" column="stu_openid"/>
+        <result property="stuGrade" column="stu_grade"/>
+        <result property="stuCollege" column="stu_college"/>
+        <result property="stuDorm" column="stu_dorm"/>
+        <result property="stuTel" column="stu_tel"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--查询所有数据-->
+    <select id="selectAll" resultMap="UserMap">
+        select * from campus.user;
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+         stu_uuid, stu_openid,stu_grade,stu_college,stu_dorm,stu_tel,create_time
+        from campus.user
+        <where>
+            <if test="uuId !=null and uuId !=''">
+                stu_uuid = #{uuId}
+            </if>
+            <if test="openId !=null and openId!=''">
+                or stu_openid = #{openId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+        stu_uuid, stu_openid, stu_grade, stu_college, stu_dorm,stu_tel, create_time
+        from campus.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+        stu_uuid, stu_openid, stu_grade, stu_college, stu_dorm,stu_tel, create_time
+        from campus.user
+        <where>
+            <if test="uuid != null">
+                and stu_uuid = #{uuId}
+            </if>
+            <if test="openId != null and openId != ''">
+                and stu_openid = #{openId}
+            </if>
+            <if test="stuGrade != null and stuGrade != ''">
+                and stu_grade = #{stuGrade}
+            </if>
+            <if test="stuCollege != null and stuCollege != ''">
+                and stu_college = #{stuCollege}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert">
+       insert into user(stu_uuid, stu_openid, stu_grade, stu_college, stu_dorm,stu_tel,create_time)
+       VALUES (#{uuId},#{openId},default ,default ,default ,default ,default )
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update campus.user
+        <set>
+            <if test="stuDorm != null and stuDorm != ''">
+                stu_dorm = #{stuDorm},
+            </if>
+            <if test="stuGrade != null and stuGrade != ''">
+                stu_grade = #{stuGrade},
+            </if>
+            <if test="stuCollege != null and stuCollege != ''">
+                stu_college = #{stuCollege},
+            </if>
+            <if test="stuTel != null and stuTel !=''">
+                stu_tel = #{stuTel},
+            </if>
+        </set>
+        where stu_uuid = #{uuId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from campus.user where stu_id = #{stuId}
+    </delete>
+</mapper>

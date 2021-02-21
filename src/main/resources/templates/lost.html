@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>序号</th>
+        <th>学号</th>
+        <th>用户图片</th>
+        <th>捡到物品图片</th>
+        <th>物品名称</th>
+        <th>捡到地点</th>
+        <th>物品类型</th>
+        <th>物品描述</th>
+        <th>是否返回</th>
+        <th>丢失用户</th>
+        <th>捡到时间</th>
+        <th>返还时间</th>
+    </tr>
+    <tr th:each="lostGoods: ${lostList}">
+        <td th:text="${lostGoods.lostNumber}"></td>
+        <td th:text="${lostGoods.lostId}"></td>
+        <!--        <td th:text="${lostGoods.lostIcon}"></td>-->
+        <!--        <td th:text="${lostGoods.goodImg}"></td>-->
+        <td th:text="${lostGoods.lostProduct}"></td>
+        <td th:text="${lostGoods.lostAddress}"></td>
+        <td th:text="${lostGoods.lostKind}"></td>
+        <td th:text="${lostGoods.lostContent}"></td>
+        <td th:text="${lostGoods.lostReturn}"></td>
+        <td th:text="${lostGoods.lostId}"></td>
+        <td th:text="${#dates.format(lostGoods.createTime,'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(lostGoods.updateTime,'yyyy-MM-dd')}"></td>
+        <td><a href="/delete/181414148">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>校园服务管理系统</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<style>
+    /** {*/
+    /*    margin: 0;*/
+    /*    padding: 0;*/
+    /*}*/
+
+    /*body {*/
+    /*    font-family: "微软雅黑";*/
+    /*    overflow-x: auto;*/
+    /*    overflow-y: hidden;*/
+    /*}*/
+
+    /*.roof {*/
+    /*    width: 100%;*/
+    /*    height: 60px;*/
+    /*    margin: 0 auto;*/
+    /*    background-color: #20222A;*/
+    /*    overflow: hidden;*/
+    /*    font-family: "宋体";*/
+    /*    overflow: hidden;*/
+    /*    font-size: 20px;*/
+    /*}*/
+
+    /*.left {*/
+    /*    float: left;*/
+    /*    margin-left: 45px;*/
+    /*}*/
+
+    /*.logo {*/
+    /*    width: 50px;*/
+    /*    height: 50px;*/
+    /*    display: inline-block;*/
+    /*}*/
+
+    /*.tttle2 {*/
+    /*    height: 60px;*/
+    /*    display: inline-block;*/
+    /*}*/
+
+    /*.left > span {*/
+    /*    display: inline-block;*/
+    /*    color: #fff;*/
+    /*    vertical-align: text-bottom;*/
+    /*    font-size: 30px;*/
+
+    /*}*/
+
+    /*.right {*/
+    /*    float: right;*/
+    /*    margin-right: 15px;*/
+    /*    line-height: 60px;*/
+    /*    font-size: 16px;*/
+    /*    color: #fff;*/
+    /*    opacity: 0.7;*/
+    /*}*/
+
+    /*.user {*/
+    /*    display: inline-block;*/
+    /*    cursor: pointer;*/
+    /*}*/
+
+    /*.back {*/
+    /*    display: inline-block;*/
+    /*}*/
+
+    /*.back > a {*/
+    /*    color: #fff;*/
+    /*    text-decoration: none;*/
+    /*}*/
+
+    /*.side-left {*/
+    /*    top: 60px;*/
+    /*    left: 0;*/
+    /*    bottom: 0;*/
+    /*    width: 200px;*/
+    /*    background-color: #20222A;*/
+    /*    position: absolute;*/
+
+    /*}*/
+
+    /*!*左侧侧边栏样式*!*/
+    /*.list_one {*/
+    /*    !*width: 200px;*!*/
+    /*    height: 45px;*/
+    /*    padding-left: 49px;*/
+    /*    border-left: solid 6px #393D49;*/
+    /*    text-align: left;*/
+    /*    line-height: 45px;*/
+    /*    color: darkgray;*/
+    /*}*/
+
+    /*.list_one:hover {*/
+    /*    color: white;*/
+    /*    border-left: solid 6px #009688;*/
+    /*    cursor: pointer;*/
+    /*}*/
+
+    /*.list_two > div {*/
+    /*    width: 150px;*/
+    /*    height: 45px;*/
+    /*    padding-left: 50px;*/
+    /*}*/
+
+    /*.list_two > div:hover {*/
+    /*    color: darkgray;*/
+    /*    cursor: pointer;*/
+    /*}*/
+
+    /*.frame-div {*/
+    /*    position: absolute;*/
+    /*    left: 200px;*/
+    /*    top: 60px;*/
+    /*    right: 0;*/
+    /*    bottom: 0;*/
+    /*    background: #eeeeee;*/
+    /*}*/
+
+    /*.ifm {*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+
+    /*}*/
+
+    /*.tuichu {*/
+    /*    padding: 10px;*/
+    /*    background: #41A809;*/
+    /*    border-radius: 5px;*/
+    /*}*/
+
+    /*.tuichu:hover {*/
+    /*    box-shadow: 0 0 1px 1px #cccccc;*/
+    /*}*/
+
+    /*.text {*/
+    /*    font-size: 45px;*/
+    /*    color: #cccccc;*/
+    /*}*/
+
+    /*.frame-div .top {*/
+    /*    width: 100%;*/
+    /*    height: 60px;*/
+    /*    top: 0;*/
+    /*    background: #eeeeee;*/
+    /*    border: 1px solid #cccccc;*/
+    /*}*/
+
+    /*.top .text {*/
+    /*    width: 200px;*/
+    /*    height: 60px;*/
+    /*    color: #009688;*/
+    /*    text-align: center;*/
+    /*    line-height: 55px;*/
+    /*    font-size: 40px;*/
+    /*    margin: 30px;*/
+    /*}*/
+
+    /*.top .search {*/
+    /*    position: absolute;*/
+    /*    width: 600px;*/
+    /*    height: 30px;*/
+    /*    border: #ffffff;*/
+    /*    border-radius: 30px;*/
+    /*    text-align: center;*/
+    /*    left: 150px;*/
+    /*    background: #ffffff;*/
+    /*    top: 15px;*/
+    /*}*/
+</style>
+<body>
+<div class="roof">
+    <div class="left">
+        <text class="text">校园服务管理后台</text>
+    </div>
+    <div class="right">
+        <div class="user">欢迎 admin</div>
+        <div class="back" style="padding: 0 35px;"><a href="">返回首页</a></div>
+        <div class="back"><a href="" class="tuichu">退出</a></div>
+    </div>
+
+</div>
+<!--左侧侧边栏-->
+<div class="side-left">
+
+    <div>
+        <div class="list_one addColor" onclick="user()">用户信息</div>
+    </div>
+    <div>
+        <div class="list_one" onclick="lost()">失物招领</div>
+
+    </div>
+    <div>
+        <div class="list_one" onclick="pick()">寻物启事</div>
+    </div>
+    <div>
+        <div class="list_one">快递代拿</div>
+    </div>
+    <div>
+        <div class="list_one">跳蚤管理</div>
+    </div>
+</div>
+<!--右侧内容-->
+<div class="frame-div">
+    <div class="top">
+        <text class="text">首页</text>
+        <input placeholder="请填写关键字进行搜索" class="search"/>
+        <img src="@{/img/search.png}">
+    </div>
+    <iframe src="" frameborder="0" class="ifm" scrolling="no" id="aa"></iframe>
+</div>
+<script>
+
+    function user() {
+        document.getElementById("aa").src = '/goods/user'
+    }
+
+    function pick() {
+        document.getElementById("aa").src = '/goods/pick'
+    }
+
+    function lost() {
+        document.getElementById("aa").src = '/goods/lost'
+
+    }
+</script>
+</body>
+</html>

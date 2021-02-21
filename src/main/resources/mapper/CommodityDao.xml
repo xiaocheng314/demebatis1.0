@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.batis.demobatis.dao.CommodityDao">
+    <insert id="insert">
+        insert into commodity(commodityNum,userId, product, content, kind, isNew, price, address, contact, createTime, updateTime)
+        values (#{commodityNum},#{userId},#{product},#{content},#{kind},#{isNew},#{price},#{address},#{contact},default ,default )
+    </insert>
+
+    <select id="commoditySelectAll" resultType="com.batis.demobatis.vo.CommodityVo">
+        select commodity.commodityNum, commodity.userId, commodity.product, commodity.content, commodity.kind, commodity.isNew, commodity.price, commodity.address, commodity.contact, commodity.createTime, commodity.updateTime,  cartimg.oneImg, cartimg.twoImg, cartimg.threeImg from commodity,cartimg where cartimg.commodityNum=commodity.commodityNum;
+    </select>
+
+    <select id="queryById" resultType="com.batis.demobatis.entity.Commodity">
+        select commodityNum from commodit
+    </select>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batis.demobatis.dao.LostGoodsDao">
+
+    <resultMap type="com.batis.demobatis.entity.LostGoods" id="LostGoodsMap">
+        <result property="lostNumber" column="lost_number"/>
+        <result property="lostWxOpenId" column="lost_wxopenid"/>
+        <result property="lostImg" column="lost_img"/>
+        <result property="lostProduct" column="lost_product"/>
+        <result property="lostAddress" column="lost_address"/>
+        <result property="lostContent" column="lost_content"/>
+        <result property="lostReturn" column="lost_return"/>
+        <result property="tel" column="tel"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--查询单个-->
+<!--    <select id="queryAllBy" resultMap="LostGoodsMap">-->
+<!--        select-->
+<!--          lost_number, lost_id,good_img, lost_icon, lost_product, good_img, lost_address, lost_kind, lost_content, lost_return, pick_id, create_time, update_time-->
+<!--        from campus.lost_goods-->
+<!--        where lost_id = #{lostId}-->
+<!--    </select>-->
+
+
+    <!--查询单个-->
+<!--    <select id="queryById" resultMap="LostGoodsMap">-->
+<!--        select-->
+<!--          lost_number, lost_id, lost_icon, lost_product, good_img, lost_address, lost_kind, lost_content, lost_return, pick_id, create_time, update_time-->
+<!--        from campus.lost_goods-->
+<!--        where lost_number = #{lostNumber}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;查询指定行数据&ndash;&gt;-->
+<!--    <select id="queryAllByLimit" resultMap="LostGoodsMap">-->
+<!--        select-->
+<!--          lost_number, lost_id, lost_icon, lost_product, lost_address, lost_kind, lost_content, lost_return, pick_id, create_time, update_time-->
+<!--        from campus.lost_goods-->
+<!--        limit #{offset}, #{limit}-->
+<!--    </select>-->
+
+    <!--查询所有 return为0的-->
+    <select id="queryAll" resultMap="LostGoodsMap">
+        select lost_number,lost_wxopenid,lost_img,lost_product,lost_address,lost_content,lost_return,tel,create_time,update_time
+        from campus.lost_goods where lost_return=0;
+    </select>
+
+    <!--通过lostNumber来确认是否丢失物认领-->
+    <update id="updateLostReturn">
+        update campus.lost_goods
+        set lost_return = 1
+        where lost_number = #{lostNumber}
+    </update>
+
+    <!--通过openId来查询丢失物的信息-->
+    <select id="queryLostAllByOpenId" resultMap="LostGoodsMap">
+        select lost_number,lost_wxopenid,lost_img,lost_product,lost_address,lost_content,lost_return,tel,create_time,update_time
+        from campus.lost_goods
+        where lost_wxopenid = #{lostWxOpenId}
+    </select>
+
+    <!--通过捡到物的名称来查询丢失物的信息-->
+    <select id="queryAllByPickProduct" resultMap="LostGoodsMap">
+        select
+        lost_number,lost_wxopenid,lost_img,lost_product,lost_address,lost_content,lost_return,tel,create_time,update_time
+        from campus.lost_goods
+        where lost_return = 0
+        and (lost_product like CONCAT(CONCAT('%', #{pickProduct}), '%') or lost_content like CONCAT(CONCAT('%', #{pickProduct}), '%'))
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="lostNumber" useGeneratedKeys="true">
+        insert  into lost_goods(lost_number,lost_wxopenid,lost_img,lost_product,lost_address,lost_content,lost_return,tel,create_time,update_time)
+        values (default ,#{lostWxOpenId}, #{lostImg}, #{lostProduct},#{lostAddress}, #{lostContent}, default , #{tel}, default ,default)
+    </insert>
+
+    <!--通过主键修改数据-->
+<!--    <update id="update">-->
+<!--        update campus.lost_goods-->
+<!--        <set>-->
+<!--            <if test="lostId != null">-->
+<!--                lost_id = #{lostId},-->
+<!--            </if>-->
+<!--            <if test="lostIcon != null and lostIcon != ''">-->
+<!--                lost_icon = #{lostIcon},-->
+<!--            </if>-->
+<!--            <if test="lostProduct != null and lostProduct != ''">-->
+<!--                lost_product = #{lostProduct},-->
+<!--            </if>-->
+<!--            <if test="lostAddress != null and lostAddress != ''">-->
+<!--                lost_address = #{lostAddress},-->
+<!--            </if>-->
+<!--            <if test="lostKind != null and lostKind != ''">-->
+<!--                lost_kind = #{lostKind},-->
+<!--            </if>-->
+<!--            <if test="lostContent != null and lostContent != ''">-->
+<!--                lost_content = #{lostContent},-->
+<!--            </if>-->
+<!--            <if test="lostReturn != null">-->
+<!--                lost_return = #{lostReturn},-->
+<!--            </if>-->
+<!--            <if test="pickId != null">-->
+<!--                pick_id = #{pickId},-->
+<!--            </if>-->
+<!--            <if test="createTime != null">-->
+<!--                create_time = #{createTime},-->
+<!--            </if>-->
+<!--            <if test="updateTime != null">-->
+<!--                update_time = #{updateTime},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where lost_number = #{lostNumber}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;通过主键删除&ndash;&gt;-->
+<!--    <delete id="deleteById">-->
+<!--        delete from campus.lost_goods where lost_number = #{lostNumber}-->
+<!--    </delete>-->
+
+</mapper>

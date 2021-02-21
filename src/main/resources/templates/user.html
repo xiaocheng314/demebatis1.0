@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<table class="contain">
+    <tr>
+        <th>学号</th>
+        <th>名字</th>
+        <th>班级</th>
+        <th>学院</th>
+        <th>宿舍</th>
+        <th>注册时间</th>
+    </tr>
+    <tr th:each="user,id: ${userList}">
+        <td th:text="${user.stuId}"></td>
+        <td th:text="${user.stuName}"></td>
+        <td th:text="${user.stuGrade}"></td>
+        <td th:text="${user.stuCollege}"></td>
+        <td th:text="${user.stuDorm}"></td>
+        <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}"></td>
+<!--        <td><a th:href="@{/goods/check/{id}(id=${user.stuId})}">删除</a></td>-->
+        <td><a th:href="@{/goods/check(id=${user.stuId})}">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>
